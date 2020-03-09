@@ -15,6 +15,11 @@ password_label.place(x=22, y=130)
 email_label = Label(text="E-mail", bg="#FFEEDD")
 email_label.place(x=22, y=190)
 
+
+Username = StringVar()
+Password = StringVar()
+E-mail = StringVar()
+
 username_entry = Entry(textvariable=Username, width="40")
 password_entry = Entry(textvariable=Password, width="40")
 email_entry = Entry(textvariable=E-mail, width="40")
