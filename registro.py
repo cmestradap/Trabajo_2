@@ -1,16 +1,16 @@
 from tkinter import *
-
+from database import *
 
 def send_data():
-    username_data = Username.get()
-    password_data = str(Password.get())
-    Email_data = str(Email.get())
+  username_data = Username.get()
+  password_data = str(Password.get())
+  Email_data = str(Email.get())
 
-    print(username_data, "\t", password_data, "\t", Email_data)
+  print(username_data, "\t", password_data, "\t", Email_data)
 
-    username_entry.delete(0,END)
-    password_entry.delete(0,END)
-    email_entry.delete(0,END)
+  username_entry.delete(0,END)
+  password_entry.delete(0,END)
+  email_entry.delete(0,END)
 
 mywindow = Tk()
 ancho = mywindow.winfo_screenwidth()
@@ -29,7 +29,6 @@ password_label = Label(text="Password", bg="#FFEEDD")
 password_label.place(x=220, y=210)
 email_label = Label(text="E-mail", bg="#FFEEDD")
 email_label.place(x=220, y=270)
-
 
 Username = StringVar()
 Password = StringVar()
