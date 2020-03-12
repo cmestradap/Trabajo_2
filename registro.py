@@ -1,11 +1,13 @@
 from tkinter import *
-from database import *
+from models.user import User
 
 def send_data():
   username_data = Username.get()
   password_data = str(Password.get())
   Email_data = str(Email.get())
 
+  user = User.create(username_data, Email_data, password_data)
+  user.insert()
   print(username_data, "\t", password_data, "\t", Email_data)
 
   username_entry.delete(0,END)
