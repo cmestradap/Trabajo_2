@@ -23,11 +23,15 @@ class User:
   @classmethod
   def find(cls, email):
     try:
-      cursor.execute("SELECT id, name, email, password FROM users WHERE email = %s", (email))
+      cursor.execute("SELECT id, name, email, password FROM users WHERE email = %s", (email,))
       record = cursor.fetchone()
-      return cls(*record)
+      if record:
+        return cls(*record)
+      else:
+        return None
+
     except (Exception, psycopg2.Error) as error:
-      print ("Error while connecting to PostgreSQL", error)
+      print ("Error while connecting to PostgreSQL:", error)
       return None
 
   def insert(self):
@@ -36,6 +40,7 @@ class User:
       connection.commit()
       return True
     except (Exception, psycopg2.Error) as error:
+      connection.rollback()
       print ("Error while connecting to PostgreSQL", error)
       return False
 
