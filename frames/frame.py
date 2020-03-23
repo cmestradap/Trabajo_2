@@ -16,5 +16,5 @@ class Frame(tk.Frame):
     self.error_msg['text'] = msg
     self.error_msg.pack()
 
-  def hide_error(self):
+  def on_show(self, args2):
     self.error_msg.pack_forget()

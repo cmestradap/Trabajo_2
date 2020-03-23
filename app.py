@@ -1,7 +1,9 @@
+import asyncio
 import tkinter as tk
 from frames.register import *
 from frames.login import *
 from frames.home import *
+from frames.printer import *
 
 class App(tk.Tk):
   def __init__(self, *args, **kwargs):
@@ -19,6 +21,7 @@ class App(tk.Tk):
     self.register_frame(Login)
     self.register_frame(Register)
     self.register_frame(Home)
+    self.register_frame(Printer)
 
     self.show_frame("Login")
 
@@ -29,9 +32,9 @@ class App(tk.Tk):
     self.frames[page_name] = frame
     self.menus[page_name] = frame.menu_bar(self)
 
-  def show_frame(self, page_name):
+  def show_frame(self, page_name, arg2 = None):
     frame = self.frames[page_name]
-    frame.hide_error()
+    frame.on_show(arg2)
     frame.tkraise()
 
     menubar = self.menus[page_name]
@@ -39,12 +42,21 @@ class App(tk.Tk):
 
   def set_user(self, user):
     self.user = user
-    self.show_frame("Home")
+    self.show_frame("Home", True)
 
   def log_out(self):
     self.user = None
     self.show_frame("Login")
 
+async def run_tk(root):
+  try:
+    while True:
+      root.update()
+      await asyncio.sleep(.01)
+  except tk.TclError as e:
+    if "application has been destroyed" not in e.args[0]:
+      raise
+
 if __name__ == '__main__':
   app = App()
-  app.mainloop()
+  asyncio.get_event_loop().run_until_complete(run_tk(app))
