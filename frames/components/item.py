@@ -29,9 +29,9 @@ class Item(tk.Frame):
     wifi.grid(row=3, column=1, columnspan=2, sticky="nsew")
 
     class_name = f"i{item.id}"
-    rating_item = item.rating()
+    rating_item = item.rating
     self.rating = None
-    if rating_item:
+    if not rating_item.empty():
       self.rating = Rating(self, controller, item=rating_item, bg="white", view=class_name)
       self.rating.grid(row=4, column=0, columnspan=3, sticky="nsew", pady=(5,5))
 

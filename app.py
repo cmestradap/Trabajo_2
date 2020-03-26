@@ -16,6 +16,7 @@ class App(tk.Tk):
     self.container.grid_rowconfigure(0, weight=1)
     self.container.grid_columnconfigure(0, weight=1)
     
+    self.user = None
     self.frames = {}
     self.menus = {}
     self.register_frame(Login)

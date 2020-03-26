@@ -69,8 +69,11 @@ class Printer(Frame):
 
     rating_tag = tk.Label(header, text="Calificación:")
     rating_tag.grid(row=8, column=0, sticky="ne")
-    self.rating = Rating(header, controller, item=None)
+    self.rating = Rating(header, controller)
     self.rating.grid(row=8, column=1, columnspan=2, sticky="w")
+    self.rating.bind("<<Rating>>", lambda e: self.__changed())
+
+    self.changed = False
 
   def on_show(self, arg2):
     super()
@@ -82,6 +85,11 @@ class Printer(Frame):
     self.link1.set(arg2.link1)
     self.link2.set(arg2.link2)
     self.obs['text'] = arg2.observations
+    self.rating.set_item(arg2.rating)
 
   def go_back(self):
-    self.controller.show_frame("Home", False) #Set if changed
+    self.controller.show_frame("Home", self.changed)
+    self.changed = False
+
+  def __changed(self):
+    self.changed = True

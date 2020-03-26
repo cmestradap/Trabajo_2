@@ -41,7 +41,7 @@ class Home(Frame):
 
   async def get_all_printers(self):
     loop = asyncio.get_event_loop()
-    return await loop.run_in_executor(None, Printer.all)
+    return await loop.run_in_executor(None, Printer.all, self.controller.user)
   
   def log_out(self):
     self.recent.clear()

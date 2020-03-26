@@ -36,8 +36,9 @@ class User:
 
   def insert(self):
     try:
-      cursor.execute("INSERT INTO users (name, email, password) VALUES(%s, %s, %s)", (self.name, self.email, self.__password))
+      cursor.execute("INSERT INTO users (name, email, password) VALUES(%s, %s, %s) RETURNING id", (self.name, self.email, self.__password))
       connection.commit()
+      self.id = cursor.fetchone()[0]
       return True
     except (Exception, psycopg2.Error) as error:
       connection.rollback()
