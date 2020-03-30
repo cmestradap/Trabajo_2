@@ -11,11 +11,11 @@ atexit.register(close_database)
 
 try:
   connection = psycopg2.connect(
-    user = "fwlnuygvpzvpis",
-    password = "da023af44eb4d87c3587ddd2edb09d2a43263dbb4405a86ec99dc34d05baaad8",
-    host = "ec2-54-197-48-79.compute-1.amazonaws.com",
+    user = "enfygpfuflrodx",
+    password = "76b10139db87c5edc4a53ecbdfc07731579217b5a049e194b81556c4143bdd61",
+    host = "ec2-50-17-21-170.compute-1.amazonaws.com",
     port = "5432",
-    database = "d54hmasrunnmlg"
+    database = "dac8g4tkukt2e4"
   )
   cursor = connection.cursor()
   cursor.execute("SELECT version();")
