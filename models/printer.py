@@ -20,3 +20,8 @@ class Printer:
   def all(cls, user):
     cursor.execute("SELECT impresoras.id, modelo, tipo_color, wifi, escaner, precio, observaciones, link1, link2, calificaciones.id, calificaciones.user_id, calificaciones.impresora_id, calificaciones.calificacion, calificaciones.created_at, calificaciones.updated_at FROM impresoras LEFT OUTER JOIN calificaciones ON calificaciones.impresora_id = impresoras.id AND calificaciones.user_id = %s", (user.id,))
     return [cls(*record) for record in cursor.fetchall()]
+
+  @classmethod
+  def recents(cls, user):
+    cursor.execute("SELECT impresoras.id, modelo, tipo_color, wifi, escaner, precio, observaciones, link1, link2, calificaciones.id, calificaciones.user_id, calificaciones.impresora_id, calificaciones.calificacion, calificaciones.created_at, calificaciones.updated_at FROM impresoras JOIN calificaciones ON calificaciones.impresora_id = impresoras.id AND calificaciones.user_id = %s ORDER BY calificaciones.updated_at DESC LIMIT 10", (user.id,))
+    return [cls(*record) for record in cursor.fetchall()]

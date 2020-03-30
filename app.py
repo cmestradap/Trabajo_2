@@ -4,6 +4,7 @@ from frames.register import *
 from frames.login import *
 from frames.home import *
 from frames.printer import *
+from frames.profile import *
 
 class App(tk.Tk):
   def __init__(self, *args, **kwargs):
@@ -23,6 +24,7 @@ class App(tk.Tk):
     self.register_frame(Register)
     self.register_frame(Home)
     self.register_frame(Printer)
+    self.register_frame(Profile)
 
     self.show_frame("Login")
 
