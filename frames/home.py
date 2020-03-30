@@ -3,6 +3,7 @@ import tkinter as tk
 from frames.frame import *
 from models.user import *
 from models.printer import *
+from recommendations.model import *
 
 from frames.components.scrollable_frame import *
 from frames.components.section import *
@@ -19,7 +20,7 @@ class Home(Frame):
     self.recent = Section(scroll.scrollable_frame, controller, title="Impresoras Recientes", get_list=self.get_recent_printers)
     self.recent.pack(side="top", fill="x")
 
-    self.recommendations = Section(scroll.scrollable_frame, controller, title="Recomendaciones")
+    self.recommendations = Section(scroll.scrollable_frame, controller, title="Recomendaciones", get_list=self.get_recommendations)
     self.recommendations.pack(side="top", fill="x")
 
     self.printers = Section(scroll.scrollable_frame, controller, title="Todas las impresoras", get_list=self.get_all_printers)
@@ -40,7 +41,7 @@ class Home(Frame):
 
   async def get_lists(self):
     await self.recent.show_items()
-    #await self.recommendations.show_items()
+    await self.recommendations.show_items()
     await self.printers.show_items()
 
   async def get_recent_printers(self):
@@ -50,6 +51,15 @@ class Home(Frame):
   async def get_all_printers(self):
     loop = asyncio.get_event_loop()
     return await loop.run_in_executor(None, Printer.all, self.controller.user)
+
+  def eval_model(self):
+    model = Model(self.controller.user)
+    printers = model.eval_model()
+    return Printer.by_ids(self.controller.user.id, printers)
+
+  async def get_recommendations(self):
+    loop = asyncio.get_event_loop()
+    return await loop.run_in_executor(None, self.eval_model)
 
   def profile(self):
     self.controller.show_frame("Profile")
