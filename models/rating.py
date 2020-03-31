@@ -33,3 +33,8 @@ class Rating:
       connection.rollback()
       print ("Error while connecting to PostgreSQL", error)
       return False
+
+  @classmethod
+  def has_ratings(cls, user):
+    cursor.execute("SELECT EXISTS(SELECT id FROM calificaciones WHERE calificaciones.user_id = %s)", (user.id,))
+    return cursor.fetchone()[0]

@@ -3,6 +3,7 @@ import tkinter as tk
 from frames.frame import *
 from models.user import *
 from models.printer import *
+import models.rating as r
 from recommendations.model import *
 
 from frames.components.scrollable_frame import *
@@ -56,9 +57,16 @@ class Home(Frame):
     model = Model(self.controller.user)
     if model.tabla_impresoras_calificadas.empty:
       return []
-  
-    printers = model.eval_model()
-    return Printer.by_ids(self.controller.user.id, printers)
+
+    elif not r.Rating.has_ratings(self.controller.user):
+      model.eval1()
+      recomendacion_colaborativo = model.User_item_score1()
+      print(recomendacion_colaborativo)
+      return []
+
+    else:
+      printers = model.eval_model()
+      return Printer.by_ids(self.controller.user.id, printers)
 
   async def get_recommendations(self):
     loop = asyncio.get_event_loop()
