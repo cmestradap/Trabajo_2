@@ -55,7 +55,7 @@ class Home(Frame):
 
   def eval_model(self):
     model = Model(self.controller.user)
-    if model.tabla_impresoras_calificadas.empty:
+    if model.tabla_impresoras_calificadas.empty or r.Rating.rating_users() <= 1:
       return []
 
     elif not r.Rating.has_ratings(self.controller.user):

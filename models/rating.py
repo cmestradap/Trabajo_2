@@ -38,3 +38,8 @@ class Rating:
   def has_ratings(cls, user):
     cursor.execute("SELECT EXISTS(SELECT id FROM calificaciones WHERE calificaciones.user_id = %s)", (user.id,))
     return cursor.fetchone()[0]
+    
+  @classmethod
+  def rating_users(cls):
+    cursor.execute("SELECT COUNT(DISTINCT calificaciones.user_id) FROM calificaciones GROUP BY calificaciones.user_id")
+    return cursor.fetchone()[0]
