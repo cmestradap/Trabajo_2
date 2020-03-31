@@ -54,6 +54,9 @@ class Home(Frame):
 
   def eval_model(self):
     model = Model(self.controller.user)
+    if model.tabla_impresoras_calificadas.empty:
+      return []
+  
     printers = model.eval_model()
     return Printer.by_ids(self.controller.user.id, printers)
 
