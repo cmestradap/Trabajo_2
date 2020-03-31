@@ -65,7 +65,9 @@ class Home(Frame):
       return []
 
     else:
-      printers = model.eval_model()
+      columnaPerfilUser, valorPerfilUser, printers = model.eval_model()
+      profile = self.controller.frames["Profile"]
+      profile.set_profile_model(columnaPerfilUser, valorPerfilUser)
       return Printer.by_ids(self.controller.user.id, printers)
 
   async def get_recommendations(self):

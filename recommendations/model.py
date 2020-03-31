@@ -264,4 +264,4 @@ class Model:
     columnaPerfilUser, valorPerfilUser, dataframeFinal = self.mainContenido()
     recomendacion_basado_contenido = dataframeFinal["id_impresora"].head(10)
     recomendacion_colaborativo = self.User_item_score1()
-    return self.mainHibrido(recomendacion_basado_contenido, recomendacion_colaborativo)
+    return columnaPerfilUser, valorPerfilUser, self.mainHibrido(recomendacion_basado_contenido, recomendacion_colaborativo)

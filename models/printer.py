@@ -27,9 +27,13 @@ class Printer:
     return [cls(*record) for record in cursor.fetchall()]
 
   @classmethod
+  def init_no_rating(cls, id, model, color, wifi, scanner, price, observations, link1, link2):
+    return cls(id, model, color, wifi, scanner, price, observations, link1, link2, None, None, None, None, None, None)
+
+  @classmethod
   def by_ids(cls, user_id, ids):
     lst = str(ids).strip('[]')
-    query = "SELECT impresoras.id, modelo, tipo_color, wifi, escaner, precio, observaciones, link1, link2, calificaciones.id, calificaciones.user_id, calificaciones.impresora_id, calificaciones.calificacion, calificaciones.created_at, calificaciones.updated_at FROM impresoras JOIN calificaciones ON calificaciones.impresora_id = impresoras.id AND calificaciones.user_id = %s AND impresoras.id = ANY('{%s}'::int[])" % (user_id, lst)
+    query = "SELECT impresoras.id, modelo, tipo_color, wifi, escaner, precio, observaciones, link1, link2 FROM impresoras WHERE impresoras.id = ANY('{%s}'::int[])" % (lst, )
     print(query)
     cursor.execute(query)
-    return [cls(*record) for record in cursor.fetchall()]
+    return [cls.recents(*record) for record in cursor.fetchall()]
