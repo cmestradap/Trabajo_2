@@ -6,6 +6,10 @@ from frames.home import *
 from frames.printer import *
 from frames.profile import *
 
+import psycopg2
+import passlib.handlers.pbkdf2
+import _socket
+
 class App(tk.Tk):
   def __init__(self, *args, **kwargs):
     tk.Tk.__init__(self, *args, **kwargs)
